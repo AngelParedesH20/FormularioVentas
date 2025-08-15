@@ -1,0 +1,19 @@
+﻿@page "/RegistroVentas"
+@inject NavigationManager navigationManager
+
+<h3>RegistroVentas</h3>
+
+<EditForm Model="@oRepresentante" OnValidSubmit="@guardar">
+    
+</EditForm>
+@code {
+    public Representante oRepresentante { get; set; } = new Representante();
+    private  void regresar()
+    {
+        navigationManager.NavigateTo("/libro");
+    }
+    private void guardar()
+    {
+        Console.WriteLine("GUARDANDO");
+    }
+}
