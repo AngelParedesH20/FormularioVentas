@@ -6,53 +6,61 @@
 <EditForm Model="@representante" OnValidSubmit="@Guardar">
     <DataAnnotationsValidator />
 
-    <div class="mt-3">
-        <label>Número de Empleado</label>
-        <InputText class="form-control" @bind-Value="representante.Num_Empl" />
-        <ValidationMessage For="(() => representante.Num_Empl)" />
-    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="mt-3">
+                <label>Número de Empleado</label>
+                <InputText class="form-control" @bind-Value="representante.Num_Empl" />
+                <ValidationMessage For="(() => representante.Num_Empl)" />
+            </div>
 
-    <div class="mt-3">
-        <label>Nombre Completo</label>
-        <InputText class="form-control" @bind-Value="representante.Nombre" />
-        <ValidationMessage For="(() => representante.Nombre)" />
-    </div>
+            <div class="mt-3">
+                <label>Nombre Completo</label>
+                <InputText class="form-control" @bind-Value="representante.Nombre" />
+                <ValidationMessage For="(() => representante.Nombre)" />
+            </div>
 
-    <div class="mt-3">
-        <label>Edad</label>
-        <InputNumber class="form-control" @bind-Value="representante.Edad" />
-        <ValidationMessage For="(() => representante.Edad)" />
-    </div>
+            <div class="mt-3">
+                <label>Edad</label>
+                <InputNumber class="form-control" @bind-Value="representante.Edad" />
+                <ValidationMessage For="(() => representante.Edad)" />
+            </div>
 
-    <div class="mt-3">
-        <label>Cargo</label>
-        <InputText class="form-control" @bind-Value="representante.Cargo" />
-        <ValidationMessage For="(() => representante.Cargo)" />
-    </div>
+            <div class="mt-3">
+                <label>Cargo</label>
+                <InputText class="form-control" @bind-Value="representante.Cargo" />
+                <ValidationMessage For="(() => representante.Cargo)" />
+            </div>
 
-    <div class="mt-3">
-        <label>Fecha de Contrato</label>
-        <InputDate class="form-control" @bind-Value="representante.Fecha_Contrato" />
-        <ValidationMessage For="(() => representante.Fecha_Contrato)" />
-    </div>
+            <div class="mt-3">
+                <label>Fecha de Contrato</label>
+                <InputDate class="form-control" @bind-Value="representante.Fecha_Contrato" />
+                <ValidationMessage For="(() => representante.Fecha_Contrato)" />
+            </div>
+        </div>
 
-    <div class="mt-3">
-        <label>Cuota</label>
-        <InputNumber class="form-control" @bind-Value="representante.Cuota" />
-        <ValidationMessage For="(() => representante.Cuota)" />
-    </div>
+        <div class="col-md-6">
 
-    <div class="mt-3">
-        <label>Ventas</label>
-        <InputNumber class="form-control" @bind-Value="representante.Ventas" />
-        <ValidationMessage For="(() => representante.Ventas)" />
-    </div>
+            <div class="mt-3">
+                <label>Cuota</label>
+                <InputNumber class="form-control" @bind-Value="representante.Cuota" />
+                <ValidationMessage For="(() => representante.Cuota)" />
+            </div>
 
-    <div class="mt-3">
-        <button type="submit" class="btn btn-primary">Guardar</button>
-        <button class="btn btn-danger">Cancelar</button>
+            <div class="mt-3">
+                <label>Ventas</label>
+                <InputNumber class="form-control" @bind-Value="representante.Ventas" />
+                <ValidationMessage For="(() => representante.Ventas)" />
+            </div>
+            <div class="mt-3">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <button class="btn btn-danger">Cancelar</button>
+        </div>
+        </div>
     </div>
 </EditForm>
+
+
 
 @code {
     private RepresentanteVentas representante = new();
