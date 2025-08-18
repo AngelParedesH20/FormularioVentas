@@ -10,7 +10,7 @@ namespace FormularioVentas.Entities
         [Required(ErrorMessage = "El nombre es obligatorio.")]
         public string? Nombre { get; set; }
 
-        [Range(18, 150, ErrorMessage = "La edad debe ser mayor o igual a 18.")]
+        [Range(18, 100, ErrorMessage = "La edad debe ser mayor o igual a 18.")]
         public int? Edad { get; set; }
 
         [Required(ErrorMessage = "El cargo es obligatorio.")]
