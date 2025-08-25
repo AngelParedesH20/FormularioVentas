@@ -1,0 +1,74 @@
+﻿@page "/RegistroVentas/tabla"
+@inject NavigationManager navigationManager
+
+<h3>Tabla de Ventas</h3>
+@if (lista != null || lista.Count != 0)
+{
+    <table class="table" style="border: 2px solid blue">
+        <thead>
+            <tr>
+                <th>Empleado</th>
+                <th>Nombre Completo</th>
+                <th>Cargo</th>
+                <th>Fecha de Contrato</th>
+                <th>Ventas</th>
+                <th>Operaciones</th>
+            </tr>
+        </thead>
+        <tbody style="border: 2px solid blue">
+            @foreach (var item in lista)
+            {
+                <tr>
+                    <td>@item.Num_Empl</td>
+                    <td>@item.Nombre</td>
+                    <td>@item.Cargo</td>
+                    <td>@item.Fecha_Contrato</td>
+                    <td>@item.Ventas</td>
+                    <td>
+                        <button class="btn btn-primary" @onclick="(()=>recuperarNum(item.Num_Empl))"> Editar
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16">
+                                <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001" />
+                            </svg>
+                        </button>
+                        <button class="btn btn-danger" @onclick = "(() => eliminarRegistro(item.Num_Empl))"> Despedir
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash2-fill" viewBox="0 0 16 16">
+                                <path d="M2.037 3.225A.7.7 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2a.7.7 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671zm9.89-.69C10.966 2.214 9.578 2 8 2c-1.58 0-2.968.215-3.926.534-.477.16-.795.327-.975.466.18.14.498.307.975.466C5.032 3.786 6.42 4 8 4s2.967-.215 3.926-.534c.477-.16.795-.327.975-.466-.18-.14-.498-.307-.975-.466z" />
+                            </svg>
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+<div>
+    <button class="btn btn-danger" style="margin:10px" @onclick="regresar">Regresar</button>
+</div>
+
+@code {
+
+    private void regresar()
+    {
+        navigationManager.NavigateTo("/");
+    }
+
+    public List<ListaRepresentante> lista = new List<ListaRepresentante>();
+
+    protected override Task OnInitializedAsync()
+    {
+        lista.Add(new ListaRepresentante { Num_Empl = "001", Nombre = "Juan Perez", Cargo = "Vendedor", 
+        Fecha_Contrato = DateTime.Now.AddYears(-2), Ventas = 700 });
+        lista.Add(new ListaRepresentante { Num_Empl = "002", Nombre = "Maria Lopez", Cargo = "Vendedor", 
+        Fecha_Contrato = DateTime.Now.AddYears(-1), Ventas = 450 });
+        return base.OnInitializedAsync();
+    }
+    public void recuperarNum(string? numEmpl)
+    {
+        navigationManager.NavigateTo($"/RegistroVentas/edit/" + numEmpl);
+    }
+    private void eliminarRegistro(string? numEmpl)
+    {
+        var listaQueda = lista.Where(p => p.Num_Empl != numEmpl).ToList();
+        lista = listaQueda;
+    }
+}

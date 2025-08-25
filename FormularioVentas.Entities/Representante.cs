@@ -17,6 +17,7 @@ namespace FormularioVentas.Entities
         public string? Cargo { get; set; }
 
         [Required(ErrorMessage = "La fecha de contrato es obligatoria.")]
+        [Range(typeof(DateTime),"01-01-1990","01-01-2100", ErrorMessage = "La fecha debe estar en el rango (01-01-1990)-(01-01-2100)")]
         public DateTime? Fecha_Contrato { get; set; }
 
         [Required(ErrorMessage = "La cuota es obligatoria.")]
