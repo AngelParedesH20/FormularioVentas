@@ -62,9 +62,9 @@
         Fecha_Contrato = DateTime.Now.AddYears(-1), Ventas = 450 });
         return base.OnInitializedAsync();
     }
-    public void recuperarNum(string? numEmpl)
+    public void recuperarNum(string? NumEmpl)
     {
-        navigationManager.NavigateTo($"/RegistroVentas/edit/" + numEmpl);
+        navigationManager.NavigateTo($"/RegistroVentas/edit/" + NumEmpl);
     }
     private void eliminarRegistro(string? numEmpl)
     {
