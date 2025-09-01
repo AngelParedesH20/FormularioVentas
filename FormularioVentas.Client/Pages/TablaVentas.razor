@@ -60,10 +60,7 @@
 
     protected override Task OnInitializedAsync()
     {
-        lista.Add(new ListaRepresentante { Num_Empl = "001", Nombre = "Juan Perez", Cargo = "Vendedor", 
-        Fecha_Contrato = DateTime.Now.AddYears(-2), Ventas = 700 });
-        lista.Add(new ListaRepresentante { Num_Empl = "002", Nombre = "Maria Lopez", Cargo = "Vendedor", 
-        Fecha_Contrato = DateTime.Now.AddYears(-1), Ventas = 450 });
+        
         return base.OnInitializedAsync();
     }
     public void recuperarNum(string? NumEmpl)
@@ -76,7 +73,6 @@
     }
     private void eliminarRegistro(string? numEmpl)
     {
-        var listaQueda = lista.Where(p => p.Num_Empl != numEmpl).ToList();
-        lista = listaQueda;
+        
     }
 }
