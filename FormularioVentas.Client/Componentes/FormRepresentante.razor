@@ -1,5 +1,5 @@
 ﻿@inject NavigationManager NavigationManager;
-
+<h2>@Titulo</h2>
 
 <EditForm Model="@representante" OnValidSubmit="@Guardar">
     <DataAnnotationsValidator />
@@ -73,13 +73,18 @@
     [Parameter]
     public string? Num_Empl { get; set; }
 
-    public string? Nombre { get; set; } = " ";
+    public string Titulo { get; set; } = " ";
 
-    public string? Cargo { get; set; } = " ";
 
-    public DateTime? Fecha_Contrato { get; set; } = default;
-
-    public decimal? Ventas { get; set; } = default;
+    protected override Task OnInitializedAsync()
+    {
+        if (Num_Empl.Equals("0")) Titulo = "Agregar Registro";
+        else{
+            Titulo = "Editar Registro";
+            
+        }
+        return base.OnInitializedAsync();
+    }
 
 
     private void Guardar()
