@@ -1,6 +1,8 @@
 ﻿@page "/RegistroVentas/tabla"
 @inject NavigationManager navigationManager
 
+<button @onclick="nuevo" class=" btn btn-primary">Nuevo</button>
+
 <h3>Tabla de Ventas</h3>
 @if (lista != null || lista.Count != 0)
 {
@@ -78,5 +80,10 @@
     {
         var listaQueda = lista.Where(p => p.Num_Empl != numEmpl).ToList();
         lista = listaQueda;
+    }
+
+    private void nuevo()
+    {
+        navigationManager.NavigateTo("/RegistroVentas");
     }
 }

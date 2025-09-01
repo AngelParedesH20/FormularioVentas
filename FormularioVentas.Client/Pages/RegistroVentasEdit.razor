@@ -1,8 +1,8 @@
 ﻿@page "/RegistroVentas/edit/{NumEmpl}"
 <h3>Editar</h3>
 
-<FormRepresentante/>
+<FormRepresentante Num_Empl=Num_Empl />
 @code {
     [Parameter]
-    public string? NumEmpl { get; set; }
+    public string? NumEmpl { get; set; } = null;
 }
