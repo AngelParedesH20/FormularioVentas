@@ -39,7 +39,7 @@ namespace FormularioVentas.Client.Services
             var obj = lista.Where(p => p.Num_Empl == numEmpl).FirstOrDefault();
             if (obj != null)
             {
-                return new RepresentanteVentas { Num_Empl = obj.Num_Empl, Nombre = obj.Nombre, Edad = , Cargo = obj.Cargo, Fecha_Contrato = obj.Fecha_Contrato, Ventas = obj.Ventas};
+                return new RepresentanteVentas { Num_Empl = obj.Num_Empl, Nombre = obj.Nombre, Edad = 18, Cargo = obj.Cargo, Fecha_Contrato = obj.Fecha_Contrato, Ventas = obj.Ventas}; 
             }
             else return new RepresentanteVentas();
         }

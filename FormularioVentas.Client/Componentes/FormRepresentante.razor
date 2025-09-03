@@ -1,4 +1,5 @@
 ﻿@inject NavigationManager NavigationManager;
+@inject RegistroVentasService registroVentasService;
 <h2>@Titulo</h2>
 
 <EditForm Model="@representante" OnValidSubmit="@Guardar">
@@ -66,9 +67,7 @@
 </EditForm>
 
 @code {
-
-
-    private RepresentanteVentas representante = new();
+    public RepresentanteVentas representante { get; set; } = new RepresentanteVentas();
 
     [Parameter]
     public string? Num_Empl { get; set; }
@@ -81,15 +80,19 @@
         if (Num_Empl.Equals("0")) Titulo = "Agregar Registro";
         else{
             Titulo = "Editar Registro";
-            
+            registroVentasService.RecuperarId(Num_Empl);
         }
         return base.OnInitializedAsync();
     }
 
-
     private void Guardar()
     {
-        Console.WriteLine($"Representante {representante.Nombre} guardado con éxito.");
+        if(Titulo == "Agregar Registro")
+        {
+            registroVentasService.GuardarRegistro(representante);
+            NavigationManager.NavigateTo("/RegistroVentas/tabla");
+        }
+ 
     }
 
     private void regresar()

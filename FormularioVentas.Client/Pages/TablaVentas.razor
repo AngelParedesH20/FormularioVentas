@@ -1,5 +1,6 @@
 ﻿@page "/RegistroVentas/tabla"
 @inject NavigationManager navigationManager
+@inject RegistroVentasService registroVentasService
 
 <button @onclick="nuevo" class=" btn btn-primary">Nuevo</button>
 
@@ -60,9 +61,13 @@
 
     public List<ListaRepresentante> lista = new List<ListaRepresentante>();
 
+    public void EnlistarRegistro()
+    {
+        lista = registroVentasService.ListarEmpleados();
+    }
     protected override Task OnInitializedAsync()
     {
-        
+        EnlistarRegistro();
         return base.OnInitializedAsync();
     }
     public void recuperarNum(string? NumEmpl)
@@ -75,7 +80,8 @@
     }
     private void eliminarRegistro(string? numEmpl)
     {
-        
+        registroVentasService.EliminarEmpleado(numEmpl);
+        EnlistarRegistro();
     }
 
     private void nuevo()
