@@ -80,7 +80,7 @@
         if (Num_Empl.Equals("0")) Titulo = "Agregar Registro";
         else{
             Titulo = "Editar Registro";
-            registroVentasService.RecuperarId(Num_Empl);
+            representante = registroVentasService.RecuperarId(Num_Empl);
         }
         return base.OnInitializedAsync();
     }
@@ -94,9 +94,8 @@
         }
  
     }
-
     private void regresar()
     {
-        NavigationManager.NavigateTo("/");
+        NavigationManager.NavigateTo("/RegistroVentas/tabla");
     }
 }

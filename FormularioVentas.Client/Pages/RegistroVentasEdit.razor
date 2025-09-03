@@ -1,7 +1,7 @@
 ﻿@page "/RegistroVentas/edit/{NumEmpl}"
 
-<FormRepresentante Num_Empl=Num_Empl />
+<FormRepresentante Num_Empl=@NumEmpl />
 @code {
     [Parameter]
-    public string? NumEmpl { get; set; } = null;
+    public string NumEmpl { get; set; } = string.Empty;
 }
