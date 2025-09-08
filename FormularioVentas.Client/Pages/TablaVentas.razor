@@ -12,6 +12,8 @@
                 <th>Nombre Completo</th>
                 <th>Cargo</th>
                 <th>Fecha de Contrato</th>
+                <th>Gerente</th>
+                <th>Sucursal</th>
                 <th>Ventas</th>
                 <th>Operaciones</th>
             </tr>
@@ -24,6 +26,8 @@
                     <td>@item.Nombre</td>
                     <td>@item.Cargo</td>
                     <td>@item.Fecha_Contrato</td>
+                    <td>@item.nombreGerente</td>
+                    <td>@item.nombreSucursal</td>
                     <td>@item.Ventas</td>
                     <td>
                         <button class="btn btn-primary" @onclick="(()=>recuperarNum(item.Num_Empl))"> Editar
@@ -68,7 +72,7 @@
         EnlistarRegistro();
         return base.OnInitializedAsync();
     }
-    public void recuperarNum(string? NumEmpl)
+    public void recuperarNum(int NumEmpl)
     {
         navigationManager.NavigateTo($"/RegistroVentas/edit/" + NumEmpl);
     }
@@ -76,7 +80,7 @@
     {
         navigationManager.NavigateTo($"/RegistroVentas");
     }
-    private void eliminarRegistro(string? numEmpl)
+    private void eliminarRegistro(int numEmpl)
     {
         registroVentasService.EliminarEmpleado(numEmpl);
         EnlistarRegistro();

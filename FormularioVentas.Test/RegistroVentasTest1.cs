@@ -34,7 +34,7 @@ namespace FormularioVentas.Test
         {
             var representante = new RepresentanteVentas()
             {
-                Num_Empl = "101",
+                Num_Empl = 101,
                 Nombre = "Juan Perez",
                 Edad = 25,
                 Cargo = "Vendedor",
@@ -52,7 +52,7 @@ namespace FormularioVentas.Test
         {
             var representante = new RepresentanteVentas()
             {
-                Num_Empl = "102",
+                Num_Empl = 102,
                 Nombre = "Maria Lopez",
                 Edad = 17,
                 Cargo = "Vendedor",

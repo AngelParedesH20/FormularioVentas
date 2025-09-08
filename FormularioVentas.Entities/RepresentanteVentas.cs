@@ -5,7 +5,7 @@ namespace FormularioVentas.Entities
     public class RepresentanteVentas
     {
         [Required(ErrorMessage = "El número de empleado es obligatorio.")]
-        public string? Num_Empl { get; set; }
+        public int Num_Empl { get; set; }
 
         [Required(ErrorMessage = "El nombre es obligatorio.")]
         public string? Nombre { get; set; }
@@ -27,5 +27,12 @@ namespace FormularioVentas.Entities
         [Required(ErrorMessage = "Las ventas son obligatorias.")]
         [Range(0.0, double.MaxValue, ErrorMessage = "Las ventas deben ser un valor numérico.")]
         public decimal? Ventas { get; set; }
+
+        [Range(1,int.MaxValue, ErrorMessage = "Debe seleccionar una Sucursal")]
+        public int idSucursal { get; set; }
+
+        [Required(ErrorMessage = "Debe seleccionar un Gerente")]
+        public string nombreGerente { get; set; } = string.Empty;
+
     }
 }
