@@ -3,6 +3,13 @@
 @inject RegistroVentasService registroVentasService
 
 <h3>Tabla de Ventas</h3>
+<div class="input-group" style="border-radius:10px">
+    <input type="text" class="form-control" placeholder="Ingrese el nombre a buscar.."
+           @bind-value="nombreRep" @bind-value:event="oninput" /">
+    <button @onclick="Buscar" class="btn btn-outline-dark" type="button">Buscar</button>
+    <button @onclick="Limpiar" class="btn btn-outline-danger" type="button">Limpia</button>
+</div>
+<br/>
 @if (lista != null || lista.Count != 0)
 {
     <table class="table" style="border: 2px solid blue">
@@ -55,7 +62,17 @@
 </div>
 
 @code {
+    public string nombreRep { get; set; } = string.Empty;
 
+    private void Buscar()
+    {
+        lista = registroVentasService.FiltrarRepresentantes(nombreRep);
+    }
+    private void Limpiar()
+    {
+        nombreRep = "";
+        lista = registroVentasService.FiltrarRepresentantes(nombreRep);
+    }
     private void regresar()
     {
         navigationManager.NavigateTo("/");
@@ -81,7 +98,7 @@
         navigationManager.NavigateTo($"/RegistroVentas");
     }
     private void eliminarRegistro(int numEmpl)
-    {
+    {   
         registroVentasService.EliminarEmpleado(numEmpl);
         EnlistarRegistro();
     }

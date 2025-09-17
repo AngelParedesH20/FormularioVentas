@@ -87,5 +87,19 @@ namespace FormularioVentas.Client.Services
             int numEmpl = lista.Select(p => p.Num_Empl).Max() + 1;
             lista.Add(new ListaRepresentante { Num_Empl = numEmpl, Nombre = oRepresentante.Nombre, Cargo = oRepresentante.Cargo, Fecha_Contrato = oRepresentante.Fecha_Contrato,nombreGerente = oRepresentante.nombreGerente, nombreSucursal = sucursalesService.RecuperarNombreSucursal(oRepresentante.idSucursal),Ventas = oRepresentante.Ventas });
         }
+
+        public List<ListaRepresentante> FiltrarRepresentantes(string nombreRep)
+        {
+            List<ListaRepresentante> l = ListarEmpleados();
+            if (string.IsNullOrEmpty(nombreRep))
+            {
+                return l;
+            }
+            else
+            {
+                List<ListaRepresentante> listaTemp = l.Where(p => p.Nombre.ToUpper().Contains(nombreRep.ToUpper())).ToList();
+                return listaTemp;
+            }
+        }
     }
 }
