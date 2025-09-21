@@ -1,6 +1,6 @@
-﻿using FormularioVentas.Entities;
+﻿using FormularioVentas.Entities.Representante;
 
-namespace FormularioVentas.Client.Services
+namespace FormularioVentas.Client.Services.Empleado
 {
     public class SucursalesService
     {

@@ -1,6 +1,7 @@
 using FormularioVentas.Client;
 using FormularioVentas.Client.Pages;
-using FormularioVentas.Client.Services;
+using FormularioVentas.Client.Services.Cliente;
+using FormularioVentas.Client.Services.Empleado;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
@@ -12,5 +13,6 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.
 
 builder.Services.AddScoped<RegistroVentasService>();
 builder.Services.AddScoped<SucursalesService>();
+builder.Services.AddScoped<ClienteService>();
 
 await builder.Build().RunAsync();

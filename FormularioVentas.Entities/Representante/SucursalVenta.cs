@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FormularioVentas.Entities
+namespace FormularioVentas.Entities.Representante
 {
     public class SucursalVenta
     {

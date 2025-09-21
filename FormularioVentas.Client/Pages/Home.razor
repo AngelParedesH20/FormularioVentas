@@ -9,8 +9,8 @@
         <div class="col-md-6 text-center">
             <label class="h2 mb-4">BIENVENIDO</label>
             <div class="d-grid gap-3 mt-4">
-                <button class="btn btn-primary btn-lg" type="button" @onclick="IrARegistroVentas">Registro Ventas</button>
-                <button class="btn btn-secondary btn-lg" type="button" @onclick="IrATablaEmpleados">Tabla empleados</button>
+                <button class="btn btn-primary btn-lg" type="button" @onclick="IrATablaCliente">Tabla Clientes</button>
+                <button class="btn btn-secondary btn-lg" type="button" @onclick="IrATablaEmpleados">Tabla Empleados</button>
             </div>
         </div>
     </div>
@@ -18,9 +18,9 @@
 </div>
 
 @code {
-    void IrARegistroVentas()
+    void IrATablaCliente()
     {
-        Navigation.NavigateTo("/RegistroVentas");
+        Navigation.NavigateTo("/RegistroClientes/tabla");
     }
 
     void IrATablaEmpleados()

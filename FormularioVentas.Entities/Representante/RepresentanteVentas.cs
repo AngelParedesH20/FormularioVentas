@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace FormularioVentas.Entities
+namespace FormularioVentas.Entities.Representante
 {
     public class RepresentanteVentas
     {

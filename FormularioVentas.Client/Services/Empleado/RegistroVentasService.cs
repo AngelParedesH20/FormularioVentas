@@ -1,7 +1,7 @@
-﻿using FormularioVentas.Entities;
+﻿using FormularioVentas.Entities.Representante;
 using System.Diagnostics;
 
-namespace FormularioVentas.Client.Services
+namespace FormularioVentas.Client.Services.Empleado
 {
     public class RegistroVentasService
     {
@@ -71,7 +71,7 @@ namespace FormularioVentas.Client.Services
 
             if (obj != null)
             {
-                return new RepresentanteVentas { Num_Empl = obj.Num_Empl, Nombre = obj.Nombre, Edad = 18, Cargo = obj.Cargo, Fecha_Contrato = obj.Fecha_Contrato, nombreGerente = obj.nombreGerente ?? "", idSucursal = sucursalesService.RecuperarIdSucursal(obj.nombreSucursal), Ventas = obj.Ventas}; 
+                return new RepresentanteVentas { Num_Empl = obj.Num_Empl, Nombre = obj.Nombre, Edad = 18, Cargo = obj.Cargo, Fecha_Contrato = obj.Fecha_Contrato, nombreGerente = obj.nombreGerente ?? "", idSucursal = sucursalesService.RecuperarIdSucursal(obj.nombreSucursal), Ventas = obj.Ventas, Cuota = 1000}; 
             }
             else return new RepresentanteVentas();
 
@@ -100,6 +100,19 @@ namespace FormularioVentas.Client.Services
                 List<ListaRepresentante> listaTemp = l.Where(p => p.Nombre.ToUpper().Contains(nombreRep.ToUpper())).ToList();
                 return listaTemp;
             }
+        }
+
+        public int RecuperarIdRepresentante(string nombreRep)
+        {
+            var obj = lista.Where(p => p.Nombre == nombreRep).FirstOrDefault();
+            if (obj == null) return 0;
+            else return obj.Num_Empl;
+        }
+        public string RecuperarNombreRepresentante(int idRep)
+        {
+            var obj = lista.Where(p => p.Num_Empl == idRep).FirstOrDefault();
+            if (obj == null) return "Sin representante";
+            else return obj.Nombre ?? string.Empty;
         }
     }
 }

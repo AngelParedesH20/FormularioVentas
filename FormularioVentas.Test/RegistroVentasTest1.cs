@@ -1,4 +1,5 @@
 using FormularioVentas.Entities;
+using FormularioVentas.Entities.Representante;
 using System.ComponentModel.DataAnnotations;
 using Xunit;
 
