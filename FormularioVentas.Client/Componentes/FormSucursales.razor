@@ -1,0 +1,122 @@
+﻿@using FormularioVentas.Client.Services.Empleado
+@using FormularioVentas.Client.Services.Sucursales
+@using FormularioVentas.Entities.Representante
+@using FormularioVentas.Entities.Sucursal
+@inject NavigationManager NavigationManager;
+@inject RegistroVentasService registroVentasService;
+@inject SucursalesService sucursalesService;
+@inject CiudadService ciudadService;
+@inject GerenteService gerenteService;
+
+<h2>@Titulo</h2>
+
+<EditForm Model="@sucursal" OnValidSubmit="@Guardar">
+    <DataAnnotationsValidator />
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="mt-3">
+                <label>Número de Sucursal</label>
+                <InputNumber readonly class="form-control" @bind-Value="sucursal.codigoSucursal" />
+                <ValidationMessage For="(() => sucursal.codigoSucursal)" />
+            </div>
+
+            <div class="mt-3">
+                <label>Seleccione Ciudad</label>
+                <InputSelect class="form-control" @bind-Value="sucursal.idCiudad">
+                    <option value="">--Seleccione--</option>
+                    @foreach (var item in nombresCiudad)
+                    {
+                        <option value="@item.codigoCiudad">@item.nombreCiudad</option>
+                    }
+                </InputSelect>
+                <ValidationMessage For="(() => sucursal.idCiudad)" />
+            </div>
+
+            <div class="mt-3">
+                <div>
+                    <label>Región</label>
+                    <InputText class="form-control" @bind-Value="sucursal.region" />
+                    <ValidationMessage For="(() => sucursal.region)" />
+                </div>
+
+            </div>
+            <div class="mt-3">
+                <label>Seleccione Gerente</label>
+                <InputSelect class="form-control" @bind-Value="sucursal.idDirector">
+                    <option value="">--Seleccione--</option>
+                    @foreach (var item in nombresGerentes)
+                    {
+                        <option value="@item.idGerente">@item.nombreGerente</option>
+                    }
+                </InputSelect>
+                <ValidationMessage For="(() => sucursal.idDirector)" />
+            </div>
+
+            <div style="margin:20px 5px">
+                <button class="btn btn-danger" @onclick="regresar">Regresar</button>
+            </div>
+        </div>
+
+           
+
+        <div class="col-md-6">
+
+            <div class="mt-3">
+                <label>Objetivo de ventas</label>
+                <InputNumber class="form-control" @bind-Value="sucursal.objetivoVenta" />
+                <ValidationMessage For="(() => sucursal.objetivoVenta)" />
+            </div>
+
+            <div class="mt-3">
+                <label>Ventas Reales</label>
+                <InputNumber class="form-control" @bind-Value="sucursal.ventasReales" />
+                <ValidationMessage For="(() => sucursal.ventasReales)" />
+            </div>
+            <div class="mt-3">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                <button class="btn btn-danger" @onclick="regresar">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+</EditForm>
+
+@code {
+    public SucursalVenta sucursal { get; set; } = new SucursalVenta();
+
+    [Parameter]
+    public int codigoSucursal { get; set; }
+
+    public string Titulo { get; set; } = " ";
+
+    public List<ListaSucursalVenta> listaSucursales { get; set; } = new List<ListaSucursalVenta>();
+    public List<Ciudades> nombresCiudad { get; set; } = new List<Ciudades>();
+    public List<GerenteVentas> nombresGerentes { get; set; } = new List<GerenteVentas>();
+
+    protected override Task OnInitializedAsync()
+    {
+        listaSucursales = sucursalesService.ListarSucursales();
+        nombresCiudad = ciudadService.ListarCiudades();
+        nombresGerentes = gerenteService.ListarGerentes();
+
+        if (codigoSucursal == 0) Titulo = "Agregar Sucursal";
+        else
+        {
+            Titulo = "Editar Sucursal";
+            sucursal = sucursalesService.RecuperarId(codigoSucursal);
+        }
+        return base.OnInitializedAsync();
+    }
+
+    private void Guardar()
+    {
+
+        sucursalesService.GuardarRegistro(sucursal);
+        NavigationManager.NavigateTo("/RegistroSucursales/tabla");
+    }
+    private void regresar()
+    {
+        NavigationManager.NavigateTo("/RegistroSucursales/tabla");
+    }
+}

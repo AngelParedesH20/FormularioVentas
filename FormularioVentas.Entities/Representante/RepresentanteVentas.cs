@@ -31,8 +31,8 @@ namespace FormularioVentas.Entities.Representante
         [Range(1,int.MaxValue, ErrorMessage = "Debe seleccionar una Sucursal")]
         public int idSucursal { get; set; }
 
-        [Required(ErrorMessage = "Debe seleccionar un Gerente")]
-        public string nombreGerente { get; set; } = string.Empty;
+        [Range(1, int.MaxValue, ErrorMessage = "Debe seleccionar una Gerente")]
+        public int idGerente { get; set; }
 
     }
 }

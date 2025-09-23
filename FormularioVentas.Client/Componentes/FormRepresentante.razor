@@ -1,8 +1,11 @@
-﻿    @using FormularioVentas.Client.Services.Empleado
-    @using FormularioVentas.Entities.Representante
+﻿@using FormularioVentas.Client.Services.Empleado
+@using FormularioVentas.Client.Services.Sucursales
+@using FormularioVentas.Entities.Representante
+@using FormularioVentas.Entities.Sucursal
     @inject NavigationManager NavigationManager;
-    @inject RegistroVentasService registroVentasService;
+    @inject GerenteService gerenteService;
     @inject SucursalesService sucursalesService;
+@inject RegistroVentasService registroVentasService;
     <h2>@Titulo</h2>
 
     <EditForm Model="@representante" OnValidSubmit="@Guardar">
@@ -54,21 +57,21 @@
                         <option value="0">--Seleccione--</option>
                         @foreach(var item in listaSucursales)
                         {
-                            <option value="@item.idSucursal">@item.nombreSucursal</option>
+                            <option value="@item.codigoSucursal">@item.nombreCiudad</option>
                         }
                     </InputSelect>
                     <ValidationMessage For="(()=>representante.idSucursal)"/>
                 </div>
                 <div class="mt-3">
                     <label>Seleccione Gerente</label>
-                    <InputSelect class="form-control" @bind-Value="representante.nombreGerente">
+                    <InputSelect class="form-control" @bind-Value="representante.idGerente">
                         <option value="">--Seleccione--</option>
                         @foreach (var item in nombresGerentes)
                         {
-                            <option value="@item.Nombre">@item.Nombre</option>
+                            <option value="@item.idGerente">@item.nombreGerente</option>
                         }
                     </InputSelect>
-                    <ValidationMessage For="(() => representante.nombreGerente)" />
+                    <ValidationMessage For="(() => representante.idGerente)" />
                 </div>
                 <div class="mt-3">
                     <label>Cuota</label>
@@ -98,13 +101,13 @@
 
         public string Titulo { get; set; } = " ";
 
-        public List<SucursalVenta> listaSucursales { get; set; } = new List<SucursalVenta>();
-        public List<ListaRepresentante> nombresGerentes { get; set; } = new List<ListaRepresentante>();
+        public List<ListaSucursalVenta> listaSucursales { get; set; } = new List<ListaSucursalVenta>();
+        public List<GerenteVentas> nombresGerentes { get; set; } = new List<GerenteVentas>();
 
         protected override Task OnInitializedAsync()
         {
             listaSucursales = sucursalesService.ListarSucursales();
-            nombresGerentes = registroVentasService.ListarGerentes();
+            nombresGerentes = gerenteService.ListarGerentes();
 
             if (Num_Empl == 0) Titulo = "Agregar Registro";
             else{

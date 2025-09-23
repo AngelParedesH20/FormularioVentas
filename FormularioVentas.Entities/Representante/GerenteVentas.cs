@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace FormularioVentas.Entities.Representante
 {
-    public class SucursalVenta
+    public class GerenteVentas
     {
-        public int idSucursal { get; set; }
-        public string? nombreSucursal { get; set; }
+        public int idGerente { get; set; }
+        public string nombreGerente { get; set; } = string.Empty;
     }
 }

@@ -11,6 +11,8 @@
             <div class="d-grid gap-3 mt-4">
                 <button class="btn btn-primary btn-lg" type="button" @onclick="IrATablaCliente">Tabla Clientes</button>
                 <button class="btn btn-secondary btn-lg" type="button" @onclick="IrATablaEmpleados">Tabla Empleados</button>
+                <button class="btn btn-dark btn-lg" type="button" @onclick="IrATablaSucursales">Tabla Sucursales</button>
+
             </div>
         </div>
     </div>
@@ -26,5 +28,9 @@
     void IrATablaEmpleados()
     {
         Navigation.NavigateTo("/RegistroVentas/tabla");
+    }
+    void IrATablaSucursales()
+    {
+        Navigation.NavigateTo("/RegistroSucursales/tabla");
     }
 }

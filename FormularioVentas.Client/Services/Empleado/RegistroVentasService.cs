@@ -1,4 +1,5 @@
-﻿using FormularioVentas.Entities.Representante;
+﻿using FormularioVentas.Client.Services.Sucursales;
+using FormularioVentas.Entities.Representante;
 using System.Diagnostics;
 
 namespace FormularioVentas.Client.Services.Empleado
@@ -6,30 +7,14 @@ namespace FormularioVentas.Client.Services.Empleado
     public class RegistroVentasService
     {
         public List<ListaRepresentante> lista;
-        public List<ListaRepresentante> listaGerentes;
         public SucursalesService sucursalesService { get; set; }
+        public GerenteService gerenteService { get; set; }
 
-        public RegistroVentasService(SucursalesService _sucursalesService)
+        public RegistroVentasService(SucursalesService _sucursalesService, GerenteService _gerenteService)
         {
             sucursalesService = _sucursalesService;
+            gerenteService = _gerenteService;
 
-            listaGerentes = new List<ListaRepresentante>();
-            listaGerentes.Add(new ListaRepresentante
-            {
-                Num_Empl = 100,
-                Nombre = "Carlos Sanchez",
-                Cargo = "Gerente",
-                Fecha_Contrato = DateTime.Now.AddYears(-5),
-                Ventas = 1500
-            });
-            listaGerentes.Add(new ListaRepresentante
-            {
-                Num_Empl = 101,
-                Nombre = "Ana Gomez",
-                Cargo = "Gerente",
-                Fecha_Contrato = DateTime.Now.AddYears(-3),
-                Ventas = 1200
-            });
             lista = new List<ListaRepresentante>();
             lista.Add(new ListaRepresentante
             {
@@ -52,10 +37,7 @@ namespace FormularioVentas.Client.Services.Empleado
                 nombreGerente = "Carlos Sanchez"
             });
         } 
-        public List<ListaRepresentante> ListarGerentes()
-        {
-            return listaGerentes;
-        }
+        
         public List<ListaRepresentante> ListarEmpleados()
         {
             return lista;
@@ -71,21 +53,16 @@ namespace FormularioVentas.Client.Services.Empleado
 
             if (obj != null)
             {
-                return new RepresentanteVentas { Num_Empl = obj.Num_Empl, Nombre = obj.Nombre, Edad = 18, Cargo = obj.Cargo, Fecha_Contrato = obj.Fecha_Contrato, nombreGerente = obj.nombreGerente ?? "", idSucursal = sucursalesService.RecuperarIdSucursal(obj.nombreSucursal), Ventas = obj.Ventas, Cuota = 1000}; 
+                return new RepresentanteVentas { Num_Empl = obj.Num_Empl, Nombre = obj.Nombre, Edad = 18, Cargo = obj.Cargo, Fecha_Contrato = obj.Fecha_Contrato, idGerente = gerenteService.RecuperarIdGerente(obj.nombreGerente), idSucursal = sucursalesService.RecuperarIdSucursal(obj.nombreSucursal), Ventas = obj.Ventas, Cuota = 1000}; 
             }
             else return new RepresentanteVentas();
 
         }
-        public string RecuperarNombreGerente(string nombreGerente)
-        {
-            var obj = listaGerentes.Where(p => p.nombreGerente == nombreGerente).FirstOrDefault();
-            if (obj == null) return "Sin Gerente";
-            else return obj.nombreGerente ?? string.Empty;
-        }
+        
         public void GuardarRegistro(RepresentanteVentas oRepresentante)
         {
             int numEmpl = lista.Select(p => p.Num_Empl).Max() + 1;
-            lista.Add(new ListaRepresentante { Num_Empl = numEmpl, Nombre = oRepresentante.Nombre, Cargo = oRepresentante.Cargo, Fecha_Contrato = oRepresentante.Fecha_Contrato,nombreGerente = oRepresentante.nombreGerente, nombreSucursal = sucursalesService.RecuperarNombreSucursal(oRepresentante.idSucursal),Ventas = oRepresentante.Ventas });
+            lista.Add(new ListaRepresentante { Num_Empl = numEmpl, Nombre = oRepresentante.Nombre, Cargo = oRepresentante.Cargo, Fecha_Contrato = oRepresentante.Fecha_Contrato,nombreGerente = gerenteService.RecuperarNombreGerente(oRepresentante.idGerente), nombreSucursal = sucursalesService.RecuperarNombreSucursal(oRepresentante.idSucursal),Ventas = oRepresentante.Ventas });
         }
 
         public List<ListaRepresentante> FiltrarRepresentantes(string nombreRep)
@@ -101,7 +78,6 @@ namespace FormularioVentas.Client.Services.Empleado
                 return listaTemp;
             }
         }
-
         public int RecuperarIdRepresentante(string nombreRep)
         {
             var obj = lista.Where(p => p.Nombre == nombreRep).FirstOrDefault();

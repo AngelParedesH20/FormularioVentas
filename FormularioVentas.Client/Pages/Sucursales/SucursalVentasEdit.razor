@@ -1,0 +1,7 @@
+﻿@page "/RegistroSucursales/edit/{codigo_Sucursal}"
+
+<FormSucursales codigoSucursal="int.Parse(codigo_Sucursal)" />
+@code {
+    [Parameter]
+    public string codigo_Sucursal { get; set; } = null;
+}

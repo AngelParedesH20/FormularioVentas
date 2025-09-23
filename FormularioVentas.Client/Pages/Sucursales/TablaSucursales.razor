@@ -1,0 +1,107 @@
+﻿@page "/RegistroSucursales/tabla"
+@using FormularioVentas.Client.Services.Sucursales
+@using FormularioVentas.Entities.Sucursal
+@inject NavigationManager navigationManager
+@inject SucursalesService sucursalesService
+
+<h3>Tabla de Sucursales</h3>
+<div class="input-group" style="border-radius:10px">
+    <input type="text" class="form-control" placeholder="Ingrese el nombre a buscar.."
+           @bind-value="nombreSu" @bind-value:event="oninput" /">
+    <button @onclick="Buscar" class="btn btn-outline-dark" type="button">Buscar</button>
+    <button @onclick="Limpiar" class="btn btn-outline-danger" type="button">Limpia</button>
+</div>
+<br />
+@if (lista != null || lista.Count != 0)
+{
+    <table class="table" style="border: 2px solid blue">
+        <thead>
+            <tr>
+                <th>Número Sucursal</th>
+                <th>Nombre de Sucursal</th>
+                <th>Región</th>
+                <th>Director</th>
+                <th>Ventas Objetivo</th>
+                <th>Ventas reales</th>
+                <th>Operaciones</th>
+            </tr>
+        </thead>
+        <tbody style="border: 2px solid grey">
+            @foreach (var item in lista)
+            {
+                <tr>
+                    <td>@item.codigoSucursal</td>
+                    <td>@item.nombreCiudad</td>
+                    <td>@item.region</td>
+                    <td>@item.nombreDirector</td>
+                    <td>@item.ventasReales</td>
+                    <td>@item.objetivoVenta</td>
+                    <td>
+                        <button class="btn btn-primary" @onclick="(() => recuperarNum(item.codigoSucursal))">
+                            Editar
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16">
+                                <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001" />
+                            </svg>
+                        </button>
+                        <button class="btn btn-danger" @onclick="(() => eliminarRegistro(item.codigoSucursal))">
+                            Despedir
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash2-fill" viewBox="0 0 16 16">
+                                <path d="M2.037 3.225A.7.7 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2a.7.7 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671zm9.89-.69C10.966 2.214 9.578 2 8 2c-1.58 0-2.968.215-3.926.534-.477.16-.795.327-.975.466.18.14.498.307.975.466C5.032 3.786 6.42 4 8 4s2.967-.215 3.926-.534c.477-.16.795-.327.975-.466-.18-.14-.498-.307-.975-.466z" />
+                            </svg>
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<div>
+    <button class="btn btn-primary" style="margin:10px" @onclick="añadir">Añadir Registro</button>
+</div>
+<div>
+    <button class="btn btn-danger" style="margin:10px" @onclick="regresar">Regresar</button>
+</div>
+
+@code {
+    public List<ListaSucursalVenta> lista = new List<ListaSucursalVenta>();
+    public string nombreSu { get; set; } = string.Empty;
+
+    private void Buscar()
+    {
+        lista = sucursalesService.FiltrarSucursales(nombreSu);
+    }
+    private void Limpiar()
+    {
+        nombreSu = "";
+        lista = sucursalesService.FiltrarSucursales(nombreSu);
+    }
+    private void regresar()
+    {
+        navigationManager.NavigateTo("/");
+    }
+
+    public void EnlistarRegistro()
+    {
+        lista = sucursalesService.ListarSucursales();
+    }
+    protected override Task OnInitializedAsync()
+    {
+        EnlistarRegistro();
+        return base.OnInitializedAsync();
+    }
+    public void recuperarNum(int codigoSucursal)
+    {
+        navigationManager.NavigateTo($"/RegistroSucursales/edit/" + codigoSucursal);
+    }
+    public void añadir()
+    {
+        navigationManager.NavigateTo($"/RegistroSucursales/add");
+    }
+    private void eliminarRegistro(int codigoSucursal)
+    {
+        sucursalesService.EliminarSucursal(codigoSucursal);
+        EnlistarRegistro();
+    }
+}
+
